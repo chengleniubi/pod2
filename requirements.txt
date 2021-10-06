@@ -1,0 +1,8 @@
+numpy
+matplotlib
+sympy
+scikit-learn
+Pillow
+open3d
+scipy
+pandas
