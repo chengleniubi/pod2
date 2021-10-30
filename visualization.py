@@ -33,6 +33,7 @@ def display_inlier_outlier2(cloud, points):
     o3d.visualization.draw_geometries([o3d_cloud, o3d_points])
 
 
+
 def display_inlier_outlier3(o3d_cloud, o3d_points):
     # print("Showing outliers (red) and inliers (gray): ")
     o3d_points.paint_uniform_color([1, 0, 0])

@@ -3,11 +3,11 @@
 Demo of POD, by le
 ===================================
 """
-import numpy as np
+# import numpy as np
 from Deal2d import *
 from Feature_processing import *
 from filter import *
-from visualization import custom_draw_geometry_with_rotation2
+# from visualization import custom_draw_geometry_with_rotation2
 
 print(__doc__)
 
@@ -45,16 +45,17 @@ def main():
 
     xx = [np.mean((xyz5_l[i], xyz5_l[i + 1]), axis=0) for i in range(len(xyz5_l) - 1)]
 
-    # 可视化
+    # 关节突可视化
     point1 = np.squeeze(np.concatenate(points_nbrs3d_left, 1))
     point2 = np.squeeze(np.concatenate(points_nbrs3d_right, 1))
     point = np.squeeze(np.concatenate([point2, point1], 0))
+    display_inlier_outlier2(np_point_clouds_rotate, point-0.1)
 
     point = np.array(xx)
 
     point[:, 1] = point[:, 1] + 4
 
-    _, _ = find_nbrs_3d(np_point_clouds_rotate, point, radius=3, view=1)
+    _, _ = find_nbrs_3d(np_point_clouds_rotate, point, radius=3, view=0)
 
     # display_inlier_outlier2(np_point_clouds_rotate, point)
     # object_cut_points = utils.np2o3d(np_point_clouds_rotate)
