@@ -14,11 +14,11 @@ def Pretreatment(file_name):
     # o3d.visualization.draw_geometries([o3d_data])
 
     # 2.去除无效点
-    o3d_points = remove_invalid(o3d_data)  # 0.073476
+    o3d_points = remove_invalid(o3d_data, view=0)  # 0.073476
     # TODO: 1.去掉append
 
     # 3.下采样
-    o3d_points_ds = down_simple(o3d_points, view=1)
+    o3d_points_ds = down_simple(o3d_points, view=0)
     # NOTE:体素下采样可以解决由于密度原因造成的主成分向量偏移
     # TODO: 2.实验重做
     # TODO: 3.最远点采样
@@ -202,9 +202,13 @@ def remove_invalid(o3d_data, view=0):
     for i in range(tem_point.shape[0]):
         if tem_point[i][0]:
             points.append(tem_point[i])
+        # else:
+        #     pass
+            # print(tem_point[i])
     points = np.array(points)
     o3d_points = utils.np2o3d(points)
     if view:
+        print(o3d_points)
         o3d.visualization.draw_geometries([o3d_points])
     return o3d_points
 
@@ -222,6 +226,8 @@ def Soliton_filter(o3d_points, view=0):
         b = time.perf_counter()
         print("%.6f" % (b - a))
         display_inlier_outlier(o3d_points, ind)  # 显示的原始点不是cl
+        o3d.visualization.draw_geometries([cl])
+        print(cl)
     return cl
 
 

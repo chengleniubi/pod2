@@ -137,15 +137,15 @@ def find_nbrs_3d(points_xyz, mid_point, radius=1, view=0):
     nbrs = NearestNeighbors().fit(points_xyz)
     p_index = [nbrs.radius_neighbors([mid_point[i]], radius=radius, return_distance=False)
                for i in range(mid_point.shape[0])]
-    # a = p_index[1][0]
-    points_nbrs = [[points_xyz[p_index[i][0]]] for i in range(len(p_index))]
-
+    p_index_tmp = np.concatenate(np.squeeze(p_index))
+    in_index = []
+    for i in range(points_xyz.shape[0]):
+        if i not in p_index_tmp:
+            in_index.append(i)
+    points_nbrs = points_xyz[p_index_tmp]
+    points_backend = points_xyz[in_index]
     if view:
-        point_view = [np.squeeze(np.array(points_nbrs[i])) for i in range(len(points_nbrs))]
-        # point_view = np.array(point_view)
-        point_view = np.concatenate(point_view)
-
-        display_inlier_outlier2(points_xyz, point_view)
+        display_inlier_outlier2(points_backend, points_nbrs)
     return p_index, points_nbrs
 
 
